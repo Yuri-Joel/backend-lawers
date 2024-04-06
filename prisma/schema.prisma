@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model advogado {
+  id                     String  @id
+  nome                   String  @db.VarChar(255)
+  serie                  String  @db.VarChar(255)
+  email                  String  @db.VarChar(255)
+  telefone               String  @db.VarChar(255)
+  senha                  String  @db.VarChar(255)
+  Especializacao         String  @db.VarChar(100)
+  Descricao_Profissional String? @db.Text
+  Horarios_Disponiveis   String  @db.VarChar(255)
+  Outras_Informacoes     String? @db.Text
+  estrelas               String? @db.VarChar(255)
+}
+
+model mensagens {
+  id                Int                         @id @default(autoincrement())
+  remetente_id      String?                     @db.VarChar(50)
+  remetente_tipo    mensagens_remetente_tipo
+  destinatario_id   String?                     @db.VarChar(50)
+  destinatario_tipo mensagens_destinatario_tipo
+  mensagem          String?                     @db.Text
+  horario_envio     DateTime?                   @default(now()) @db.Timestamp(0)
+
+  @@index([destinatario_id, destinatario_tipo], map: "destinatario_id")
+  @@index([remetente_id, remetente_tipo], map: "remetente_id")
+}
+
+model notificacoes {
+  id         String    @id
+  mensagem   String    @db.Text
+  data_envio DateTime? @default(now()) @db.Timestamp(0)
+  email      String    @db.VarChar(255)
+  endereco   String    @db.Text
+}
+
+model usuario {
+  id       String  @id
+  nome     String  @db.VarChar(255)
+  email    String  @db.VarChar(255)
+  senha    String  @db.VarChar(255)
+  telefone String? @db.VarChar(255)
+}
+
+enum mensagens_remetente_tipo {
+  usuario
+  advogado
+}
+
+enum mensagens_destinatario_tipo {
+  usuario
+  advogado
+}

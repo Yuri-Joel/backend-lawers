@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+  "sourceMap": true,
+  "outDir": "./dist",
+  "rootDir": "./src",
+    "strict": true,        
+    "lib": ["ESNext"],                         
+    "esModuleInterop": true ,
+                            
+  },
+  "include": ["src/**/*", "indes.ts"],
+  "exclude": ["node_modules", "dist"],
+  "Es-node": {
+    "files": true
+  }
+}
