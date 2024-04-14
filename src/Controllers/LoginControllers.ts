@@ -4,7 +4,6 @@ import express,{ Response, Request } from "express";
 
 const app = express.Router()
 app.post( "/login", async (req: Request, res: Response) => {
-
     const { email } = req.body
     const { senha } = req.body
    
